@@ -1,0 +1,25 @@
+# ─── Core ────────────────────────────────────────────────────
+torch>=2.1.0
+torchvision>=0.16.0
+ultralytics>=8.2.0          # YOLOv8 (train + inference)
+opencv-python>=4.9.0
+numpy>=1.24.0
+PyYAML>=6.0
+
+# ─── ONNX export & inference ─────────────────────────────────
+onnx>=1.16.0
+onnxruntime>=1.18.0         # CPU inference
+# onnxruntime-gpu>=1.18.0   # uncomment for GPU ONNX inference
+
+# ─── Optimization ────────────────────────────────────────────
+# onnxruntime-tools is bundled with onnxruntime ≥1.16
+# For static INT8 quantization add:
+# onnxruntime-extensions
+
+# ─── Benchmarking & visualization ────────────────────────────
+matplotlib>=3.8.0
+pandas>=2.0.0
+
+# ─── Development / linting (optional) ────────────────────────
+# pytest>=8.0
+# ruff>=0.4

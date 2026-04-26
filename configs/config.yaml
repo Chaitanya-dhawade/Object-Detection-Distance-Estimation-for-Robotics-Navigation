@@ -1,0 +1,87 @@
+# ============================================================
+# Object Detection + Distance Estimation for Robotics Nav
+# Project Configuration
+# ============================================================
+
+project:
+  name: "robotics_nav_detection"
+  version: "1.0.0"
+  seed: 42
+
+# ─── Dataset ────────────────────────────────────────────────
+dataset:
+  name: "bdd100k"                    # or "custom"
+  root: "data/bdd100k"
+  images_dir: "images/100k"
+  labels_dir: "labels/100k"
+  train_split: "train"
+  val_split:   "val"
+  # Classes of interest (subset of BDD100K)
+  classes:
+    - "traffic cone"                  # index 0 → "cone"
+    - "barrier"                       # index 1
+    - "stop sign"                     # index 2
+  class_map:                          # BDD100K label → our label
+    "traffic cone": 0
+    "barrier": 1
+    "stop sign": 2
+  image_size: 640
+  augment: true
+
+# ─── Model ──────────────────────────────────────────────────
+model:
+  architecture: "yolov8n"            # yolov8n | yolov8s | yolov8m
+  pretrained: true
+  num_classes: 3
+  confidence_threshold: 0.40
+  iou_threshold: 0.50
+
+# ─── Training ───────────────────────────────────────────────
+training:
+  epochs: 50
+  batch_size: 16
+  learning_rate: 0.001
+  weight_decay: 0.0005
+  optimizer: "AdamW"
+  scheduler: "cosine"
+  warmup_epochs: 3
+  device: "cuda"                     # "cuda" | "cpu" | "mps"
+  workers: 4
+  save_dir: "runs/train"
+  resume: false
+  checkpoint_path: null
+
+# ─── Distance Estimation (Pinhole Camera Model) ─────────────
+distance:
+  # Real-world heights in metres (measured / standard)
+  real_heights:
+    cone:      0.70                  # traffic cone ~70 cm
+    barrier:   1.00                  # jersey barrier ~100 cm
+    stop_sign: 0.75                  # stop sign panel ~75 cm
+
+  # Camera intrinsics – calibrate per camera for best results
+  focal_length_px: 718.856           # from KITTI as default
+  sensor_height_px: 376              # image height used for calibration
+
+# ─── Optimization ───────────────────────────────────────────
+optimization:
+  quantization:
+    enabled: true
+    mode: "int8"                     # "int8" | "fp16"
+    calibration_batches: 10
+  pruning:
+    enabled: true
+    sparsity: 0.30                   # 30 % of weights zeroed
+    method: "l1_unstructured"
+  export:
+    onnx: true
+    tensorrt: false                  # requires TensorRT install
+    opset_version: 17
+
+# ─── Benchmarking ───────────────────────────────────────────
+benchmark:
+  runs: 200
+  warmup_runs: 20
+  devices: ["cpu", "cuda"]
+  batch_sizes: [1, 4, 8]
+  input_size: [640, 640]

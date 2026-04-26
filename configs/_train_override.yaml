@@ -1,0 +1,73 @@
+benchmark:
+  batch_sizes:
+  - 1
+  - 4
+  - 8
+  devices:
+  - cpu
+  - cuda
+  input_size:
+  - 640
+  - 640
+  runs: 200
+  warmup_runs: 20
+dataset:
+  augment: true
+  class_map:
+    barrier: 1
+    stop sign: 2
+    traffic cone: 0
+  classes:
+  - traffic cone
+  - barrier
+  - stop sign
+  image_size: 640
+  images_dir: images/100k
+  labels_dir: labels/100k
+  name: bdd100k
+  root: data/bdd100k
+  train_split: train
+  val_split: val
+distance:
+  focal_length_px: 718.856
+  real_heights:
+    barrier: 1.0
+    cone: 0.7
+    stop_sign: 0.75
+  sensor_height_px: 376
+model:
+  architecture: yolov8n
+  confidence_threshold: 0.4
+  iou_threshold: 0.5
+  num_classes: 3
+  pretrained: true
+optimization:
+  export:
+    onnx: true
+    opset_version: 17
+    tensorrt: false
+  pruning:
+    enabled: true
+    method: l1_unstructured
+    sparsity: 0.3
+  quantization:
+    calibration_batches: 10
+    enabled: true
+    mode: int8
+project:
+  name: robotics_nav_detection
+  seed: 42
+  version: 1.0.0
+training:
+  batch_size: 16
+  checkpoint_path: null
+  device: cuda
+  epochs: 50
+  learning_rate: 0.001
+  optimizer: AdamW
+  resume: false
+  save_dir: runs/train
+  scheduler: cosine
+  warmup_epochs: 3
+  weight_decay: 0.0005
+  workers: 4
