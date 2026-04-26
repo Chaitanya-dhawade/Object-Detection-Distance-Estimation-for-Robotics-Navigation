@@ -1,4 +1,5 @@
-# Object-Detection-Distance-Estimation-for-Robotics-Navigation
+## 🤖 Object Detection & Distance Estimation for Robotics Navigation
+* 👤 Submitted by: Chaitanya Dhawade
 
 
 > YOLOv8 • Monocular Distance Estimation • ONNX/INT8 Optimization • Advanced Computer Vision
