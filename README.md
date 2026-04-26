@@ -166,8 +166,8 @@ python utils/advanced_vision.py \
 * Surveillance
 * Navigation assistants
 
-#📬 Contact
-*👤 Name: Chaitanya Gajanan Dhawade
-*📧 Email: chaitanyadhawade23@gmail.com
-*🔗 LinkedIn: https://www.linkedin.com/in/chaitanya-dhawade-652380313/
-*💻 GitHub: https://github.com/Chaitanya-dhawade/
+# 📬 Contact
+* 👤 Name: Chaitanya Gajanan Dhawade
+* 📧 Email: chaitanyadhawade23@gmail.com
+* 🔗 LinkedIn: https://www.linkedin.com/in/chaitanya-dhawade-652380313/
+* 💻 GitHub: https://github.com/Chaitanya-dhawade/
